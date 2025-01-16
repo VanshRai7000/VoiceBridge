@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Voice & Voice-to-Text Converter</title>
+    <link rel="stylesheet" href="/static/CSS/style.css">
+    <link rel="icon" href="C:\Users\ACER\Downloads\png-transparent-fire-blue-flame-icon-logo-design.png"
+        type="image/png">
+    <script>
+        // JavaScript to handle the form submission for voice-to-text
+        async function handleVoiceToText(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(event.target);
+            const audioFile = formData.get('audio');
+            const language = formData.get('language');
+
+            // Create the POST request to send audio file and language
+            try {
+                const response = await fetch('/voice-to-text', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                const transcriptionResult = document.getElementById('transcriptionText');
+                const transcriptionDiv = document.getElementById('transcriptionResult');
+
+                if (response.ok) {
+                    // Remove the transcription from the footer
+                    transcriptionDiv.style.display = 'none';  // Hide the footer transcription part
+
+                    // Show the modal with the translated text
+                    document.getElementById('modal').style.display = 'block';
+                    const modalTranscriptionText = document.getElementById('modalTranscriptionText');
+                    modalTranscriptionText.innerHTML = `
+                        <strong>Translated Text:</strong> ${result.translated_text || 'No translation available'}
+                    `;
+                } else {
+                    // Display error if something went wrong
+                    transcriptionResult.innerHTML = `<span class="error">${result.error}</span>`;
+                }
+            } catch (error) {
+                // Handle any fetch or network errors
+                document.getElementById('transcriptionText').innerHTML = `<span class="error">An error occurred: ${error.message}</span>`;
+            }
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body background="" C:\Users\ACER\Downloads\OIP.jpeg"">
+    <div class="container">
+        <h1>Text-to-Voice & Voice-to-Text Converter</h1>
+
+        <!-- Text-to-Voice Section -->
+        <section class="text-to-voice">
+            <h2>Convert Text to Voice</h2>
+            <form action="/text-to-voice" method="POST">
+                <h4>Enter Your's Text:</h4>
+                <textarea id="text" name="text" rows="4" placeholder="Type your text here..." required></textarea>
+
+                <h4><label for="text-language">Select Language:</label></h4>
+                <select id="text-language" name="language">
+                    <option value="en" selected>English (US)</option>
+                    <option value="hi">Hindi (India)</option>
+                    <option value="mr">Marathi (India)</option>
+                    <option value="ta">Tamil (India)</option>
+                    <option value="gu">Gujarati (India)</option>
+                    <option value="pa">Punjabi (India)</option>
+                    <!-- Add more languages as needed -->
+                </select>
+                <button type="submit" class="btn btn-outline-light">Convert to Voice</button>
+            </form>
+        </section>
+        <hr>
+
+        <!-- Voice-to-Text Section -->
+        <section class="voice-to-text">
+            <h2>Convert Voice to Text</h2>
+            <form id="voiceToTextForm" enctype="multipart/form-data" onsubmit="handleVoiceToText(event)">
+                <h4><label for="audio">Upload Audio File:</label></h4>
+                <div class="file"><input id="audio" type="file" name="audio" accept=".wav,.mp3" required></div>
+
+                <h4><label for="audio-language">Select Language:</label></h4>
+                <select id="audio-language" name="language">
+
+                    <option value="en" selected>English (US)</option>
+                    <option value="hi">Hindi (India)</option>
+                    <option value="mr">Marathi (India)</option>
+                    <option value="ta">Tamil (India)</option>
+                    <option value="gu">Gujarati (India)</option>
+                    <option value="pa">Punjabi (India)</option>
+                    <!-- Add more languages as needed -->
+                </select>
+
+                <button type="submit">Convert to Text</button>
+            </form>
+            <div id="transcriptionResult">
+                <h3></h3>
+                <p id="transcriptionText"></p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for displaying translated text -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Translated Text</h3>
+            <p id="modalTranscriptionText">Translated text will appear here...</p>
+        </div>
+    </div>
+</body>
+
+</html>
