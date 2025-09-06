@@ -8,6 +8,7 @@ from pydub import AudioSegment
 import uuid
 import time
 
+
 # Add ffmpeg to PATH (needed for pydub)
 os.environ["PATH"] += os.pathsep + r"C:\ProgramData\chocolatey\bin"
 
@@ -30,7 +31,6 @@ def safe_translate(text, target_lang="en", retries=3):
         try:
             detected = translator.detect(text).lang
 
-            # 🚩 Skip translation if already in target language
             if detected == target_lang:
                 return text, detected, None
 
