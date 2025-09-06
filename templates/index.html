@@ -6,9 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text-to-Voice & Voice-to-Text Converter</title>
-    <link rel="stylesheet" href="/static/CSS/style.css">
-    <link rel="icon" href="C:\Users\ACER\Downloads\png-transparent-fire-blue-flame-icon-logo-design.png"
-        type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='pic6.jpg') }}" type="image/png">
     <script>
         // JavaScript to handle the form submission for voice-to-text
         async function handleVoiceToText(event) {
@@ -56,7 +55,7 @@
     </script>
 </head>
 
-<body background="" C:\Users\ACER\Downloads\OIP.jpeg"">
+<body>
     <div class="container">
         <h1>Text-to-Voice & Voice-to-Text Converter</h1>
 
@@ -69,13 +68,12 @@
 
                 <h4><label for="text-language">Select Language:</label></h4>
                 <select id="text-language" name="language">
-                    <option value="en" selected>English (US)</option>
-                    <option value="hi">Hindi (India)</option>
-                    <option value="mr">Marathi (India)</option>
-                    <option value="ta">Tamil (India)</option>
-                    <option value="gu">Gujarati (India)</option>
-                    <option value="pa">Punjabi (India)</option>
-                    <!-- Add more languages as needed -->
+                    <option value="en" selected>English</option>
+                    <option value="hi">Hindi </option>
+                    <option value="mr">Marathi </option>
+                    <option value="ta">Tamil </option>
+                    <option value="gu">Gujarati </option>
+                    <option value="pa">Punjabi </option>
                 </select>
                 <button type="submit" class="btn btn-outline-light">Convert to Voice</button>
             </form>
@@ -93,11 +91,11 @@
                 <select id="audio-language" name="language">
 
                     <option value="en" selected>English (US)</option>
-                    <option value="hi">Hindi (India)</option>
-                    <option value="mr">Marathi (India)</option>
-                    <option value="ta">Tamil (India)</option>
-                    <option value="gu">Gujarati (India)</option>
-                    <option value="pa">Punjabi (India)</option>
+                    <option value="hi">Hindi </option>
+                    <option value="mr">Marathi </option>
+                    <option value="ta">Tamil </option>
+                    <option value="gu">Gujarati </option>
+                    <option value="pa">Punjabi </option>
                     <!-- Add more languages as needed -->
                 </select>
 
