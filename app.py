@@ -3,15 +3,14 @@ from gtts import gTTS
 import speech_recognition as sr
 import os
 from werkzeug.utils import secure_filename
-# from googletrans import Translator   # ❌ old
-from deep_translator import GoogleTranslator  # ✅ new
+from deep_translator import GoogleTranslator
 from pydub import AudioSegment
 import uuid
 import time
 
 
 # Add ffmpeg to PATH (needed for pydub)
-os.environ["PATH"] += os.pathsep + r"C:\ProgramData\chocolatey\bin"
+# os.environ["PATH"] += os.pathsep + r"C:\ProgramData\chocolatey\bin"
 
 app = Flask(__name__)
 
@@ -84,7 +83,7 @@ def convert_audio(input_file, output_format="wav"):
         raise Exception(f"Audio conversion failed: {e}")
 
 # Point pydub to ffmpeg
-AudioSegment.converter = r"C:\ProgramData\chocolatey\bin\ffmpeg.exe"
+# AudioSegment.converter = r"C:\ProgramData\chocolatey\bin\ffmpeg.exe"
 
 
 @app.route('/voice-to-text', methods=['POST'])
