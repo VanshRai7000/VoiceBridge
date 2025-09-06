@@ -61,7 +61,7 @@
 
         <!-- Text-to-Voice Section -->
         <section class="text-to-voice">
-            <h2>Convert Text to Voice</h2>
+            <h2>Text to Voice</h2>
             <form action="/text-to-voice" method="POST">
                 <h4>Enter Your's Text:</h4>
                 <textarea id="text" name="text" rows="4" placeholder="Type your text here..." required></textarea>
@@ -82,9 +82,9 @@
 
         <!-- Voice-to-Text Section -->
         <section class="voice-to-text">
-            <h2>Convert Voice to Text</h2>
+            <h2>Voice to Text</h2>
             <form id="voiceToTextForm" enctype="multipart/form-data" onsubmit="handleVoiceToText(event)">
-                <h4><label for="audio">Upload Audio File:</label></h4>
+                <!-- <h4><label for="audio">Upload Audio File:</label></h4> -->
                 <div class="file"><input id="audio" type="file" name="audio" accept=".wav,.mp3" required></div>
 
                 <h4><label for="audio-language">Select Language:</label></h4>
@@ -112,7 +112,6 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Translated Text</h3>
             <p id="modalTranscriptionText">Translated text will appear here...</p>
         </div>
     </div>

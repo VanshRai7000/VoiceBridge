@@ -3,7 +3,8 @@ from gtts import gTTS
 import speech_recognition as sr
 import os
 from werkzeug.utils import secure_filename
-from googletrans import Translator
+# from googletrans import Translator   # ❌ old
+from deep_translator import GoogleTranslator  # ✅ new
 from pydub import AudioSegment
 import uuid
 import time
@@ -20,25 +21,17 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-translator = Translator()
 
-# ✅ Safer translation (skips transliteration issues)
+# ✅ Safer translation using deep-translator
 def safe_translate(text, target_lang="en", retries=3):
     if not text or text.strip() == "":
         return text, None, None
 
     for attempt in range(retries):
         try:
-            detected = translator.detect(text).lang
-
-            if detected == target_lang:
-                return text, detected, None
-
-            result = translator.translate(text, src=detected, dest=target_lang)
-            translated_text = result.text
-            romanized_text = result.pronunciation
-
-            return translated_text, detected, romanized_text
+            translated_text = GoogleTranslator(source="auto", target=target_lang).translate(text)
+            # deep-translator does not provide pronunciation directly
+            return translated_text, "auto", None
         except Exception as e:
             print(f"Translation attempt {attempt+1} failed: {e}")
             time.sleep(1)

@@ -64,6 +64,7 @@ h2 {
 h4, label {
   color: #E0E0E0; /* light gray for labels */
   font-weight: 500;
+  margin-top: 10px;
 }
 
 /* Body Text & Inputs */
